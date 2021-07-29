@@ -6,13 +6,13 @@ let categorySchema = new mongoose.Schema({
     required: REQUIRED_VALIDATION_MESSAGE
   },
   
-/* 
+
   vente: [{
     type: mongoose.Schema.Types.ObjectId,
     default: [],
     ref: 'Vente'
-  }] */
-
+  }]  
+ 
 }, {timestamps:true})
 let Category = mongoose.model('Category', categorySchema)
 module.exports = Category

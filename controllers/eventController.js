@@ -1,27 +1,23 @@
-const Vente = require("../models/venteModel");
-const Comment = require("../models/venteModel");
-
+const Event = require("../models/eventModel");
+const Comment = require("../models/commentModel");
 module.exports = {
-  CreateVente: async (req, res) => {
-    const venteObj = {
+  CreateEvent: async (req, res) => {
+    const eventObj = {
       title: req.body.title,
       content: req.body.content,
-      price: req.body.price,
-      phone: req.body.phone,
-      image: req.file.filename,
-      id_category : req.body.id_category
+      phone: req.body.phone
     };
-    venteObj.id_author = req.user._id;
-    
-    console.log(venteObj);
-    Vente.create(venteObj)
-      .then((createdVente) => {
-        Vente.findById(createdVente.id)
-          .then((vente) => {
+    eventObj.id_author = req.user._id;
+
+    console.log(eventObj);
+    Event.create(eventObj)
+      .then((createdEvent) => {
+        Event.findById(createdEvent.id)
+          .then((event) => {
             res.status(200).json({
               success: true,
-              message: "Vente added successfully.",
-              data: vente,
+              message: "Event added successfully.",
+              data: event,
             });
           })
           .catch((err) => {
@@ -43,30 +39,28 @@ module.exports = {
       });
   },
 
-  EditVente: async (req, res) => {
-    const venteId = req.params.id;
-    let vente = await Vente.findById(venteId);
-    if (req.user._id.toString() === vente.id_author.toString()) {
-      const venteObj = req.body;
-      venteObj.id_author = req.user._id;
+  EditEvent: async (req, res) => {
+    const eventId = req.params.id;
+    let event = await Event.findById(eventId);
+    if (req.user._id.toString() === event.id_author.toString()) {
+      const eventObj = req.body;
+      eventObj.id_author = req.user._id;
       
-      Vente.findById(venteId)
-        .then((existingVente) => {
-          existingVente.title = venteObj.title;
-          existingVente.content = venteObj.content;
-          existingVente.price = venteObj.price;
-          existingVente.phone = venteObj.phone;
-          //existingVente.id_category = venteObj.id_category;
-          existingVente
+      Event.findById(eventId)
+        .then((existingEvent) => {
+          existingEvent.title = eventObj.title;
+          existingEvent.content = eventObj.content;
+          existingEvent.phone = eventObj.phone;
+          existingEvent
             .save()
-            .then((editedVente) => {
-              Vente.findById(editedVente._id)
+            .then((editedEvent) => {
+              Event.findById(editedEvent._id)
                 .populate("comments")
-                .then((vente) => {
+                .then((event) => {
                   res.status(200).json({
                     success: true,
-                    message: "Vente edited successfully.",
-                    data: vente,
+                    message: "Event diteed successfully.",
+                    data: event,
                   });
                 })
                 .catch((err) => {
@@ -81,7 +75,7 @@ module.exports = {
             .catch((err) => {
               console.log(err);
               let message =
-                "Something went wrong 1:( Check the form for errors.";
+                "Something went wrong1 :( Check the form for errors.";
               return res.status(401).json({
                 success: false,
                 message: message,
@@ -90,7 +84,7 @@ module.exports = {
         })
         .catch((err) => {
           console.log(err);
-          const message = "Something went wrong 2:( Check the form for errors.";
+          const message = "Something went wrong2 :( Check the form for errors.";
           return res.status(401).json({
             success: false,
             message: message,
@@ -103,9 +97,8 @@ module.exports = {
       });
     }
   },
-
-  GetAllVente: async (req, res) => {
-    Vente.find()
+  GetAllEvent: async (req, res) => {
+    Event.find()
       .populate({
         path: "comments",
         populate: {
@@ -113,24 +106,24 @@ module.exports = {
         },
       })
       .populate("id_author")
-      .then((ventes) => {
-        res.status(200).json(ventes);
+      .then((events) => {
+        res.status(200).json(events);
       });
   },
-  DeleteVente: async (req, res) => {
-    const venteId = req.params.id;
-    let vente = await Vente.findById(venteId);
-    if (req.user._id.toString() === vente.id_author.toString()) {
-      let venteComments = vente.comments;
-      for (let id of venteComments) {
+  DeleteEvent: async (req, res) => {
+    const eventId = req.params.id;
+    let event = await Event.findById(eventId);
+    if (req.user._id.toString() === event.id_author.toString()) {
+      let eventComments = event.comments;
+      for (let id of eventComments) {
         await Comment.findById(id).remove();
       }
-      Vente.findById(venteId)
-        .then((vente) => {
-          vente.remove().then(() => {
+      Event.findById(eventId)
+        .then((event) => {
+          event.remove().then(() => {
             return res.status(200).json({
               success: true,
-              message: "Vente deleted successfully!",
+              message: "Event deleted successfully!",
             });
           });
         })

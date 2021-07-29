@@ -1,10 +1,7 @@
 const mongoose = require('mongoose')
 const REQUIRED_VALIDATION_MESSAGE = '{PATH} is required'
 let postSchema = new mongoose.Schema({
-  title: {
-    type: mongoose.Schema.Types.String,
-    required: REQUIRED_VALIDATION_MESSAGE
-  },
+
   content: {
     type: mongoose.Schema.Types.String,
     required: REQUIRED_VALIDATION_MESSAGE

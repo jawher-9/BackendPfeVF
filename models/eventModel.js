@@ -2,30 +2,28 @@ const mongoose = require('mongoose')
 const REQUIRED_VALIDATION_MESSAGE = '{PATH} is required'
 const Post = require('../models/postModel')
 
-let venteSchema = new mongoose.Schema({
+let eventSchema = new mongoose.Schema({
   title: {
     type: mongoose.Schema.Types.String,
     required: REQUIRED_VALIDATION_MESSAGE
   },
 
-  price: {
-    type: mongoose.Schema.Types.String,
-    required: REQUIRED_VALIDATION_MESSAGE
-  },
   phone: {
     type: mongoose.Schema.Types.String,
     required: REQUIRED_VALIDATION_MESSAGE
   },
 
-  
-  id_category: {
+  id_author: {
     type: mongoose.Schema.Types.ObjectId,
-   //required: REQUIRED_VALIDATION_MESSAGE,
-   ref: 'Category'
+    ref: 'User'
   },  
 
-
-}
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    default: [],
+    ref: 'Comment'
+  }]
+}, 
 )
-let Vente = Post.discriminator('Vente', venteSchema)
-module.exports = Vente
+let Event = Post.discriminator('Event', eventSchema)
+module.exports = Event

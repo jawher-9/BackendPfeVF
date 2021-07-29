@@ -6,9 +6,10 @@ const db=require('./config/database')
 const routerUser = require('./routes/UserRoutes')
 const routerPost = require('./routes/postRoutes')
 const routerVente = require('./routes/venteRoute')
+const routerEvent = require('./routes/eventRoutes')
 const routerComment = require('./routes/commentRoutes')
 const routerCategory = require('./routes/categoryRoute')
-
+ 
 app.use(cors())
 app.use(bodyparser.json())
 
@@ -21,8 +22,9 @@ app.get('/getfile/:image',function(req,res){//pour faire affichage image sur pos
 app.use('/user',routerUser) 
 app.use('/post',routerPost)
 app.use('/vente',routerVente)
+app.use('/event',routerEvent) 
 app.use('/comment',routerComment)
-app.use('/category',routerCategory)
+app.use('/category',routerCategory) 
 
 
 

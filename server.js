@@ -9,6 +9,7 @@ const routerVente = require('./routes/venteRoute')
 const routerEvent = require('./routes/eventRoutes')
 const routerComment = require('./routes/commentRoutes')
 const routerCategory = require('./routes/categoryRoute')
+const routerAbonnes = require('./routes/abonnesRoutes')
  
 app.use(cors())
 app.use(bodyparser.json())
@@ -25,6 +26,7 @@ app.use('/vente',routerVente)
 app.use('/event',routerEvent) 
 app.use('/comment',routerComment)
 app.use('/category',routerCategory) 
+app.use('/abonnes',routerAbonnes) 
 
 
 

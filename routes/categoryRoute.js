@@ -1,11 +1,11 @@
-const CategoryController = require("../controllers/categoryController");
-const router = require("express").Router();
-const auth = require("../middelwares/authentification");
+const categorycontroller= require('../controllers/categoryController')
+const route=require('express').Router()
+const auth=require('../middelwares/authentification')
 
-  router.get("/all", CategoryController.getALLCategory);
-  router.post("/save", auth.validateUser, CategoryController.CreateCategory );
-  router.delete("/delete/:id",auth.validateUser, CategoryController.DeleteCategory);
-  router.put("/update/:id",auth.validateUser,CategoryController.EditCategory);
- 
-module.exports = router;
-    
+route.post('/save',auth.validateUser,categorycontroller.CreateCategory)
+route.get('/all',categorycontroller.GetALLCategory)
+route.get('/getone/:id',auth.validateUser,categorycontroller.GetCategoryById)
+route.delete('/delete/:id',auth.validateUser,categorycontroller.DeleteCategory)
+route.put('/update/:id',auth.validateUser,categorycontroller.UpdateCategory)
+
+module.exports=route

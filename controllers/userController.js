@@ -12,8 +12,7 @@ module.exports= {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
-            phone: req.body.phone,
-            image:req.file.filename
+            image: "images/facebookprofilepic.jpg"
         }
         User.create(newuser, (err, user) =>{
             if(err)
@@ -128,7 +127,7 @@ module.exports= {
                         user:userInfo
                     },
                         req.app.get('secretKey'),
-                        { expiresIn: '2h' }); 
+                        { expiresIn: '6h' }); 
                         var refreshToken=randtoken.uid(256)
                         RefreshTokens[refreshToken]=userInfo._id
                     res.json({ 

@@ -56,7 +56,7 @@ module.exports = {
           existingVente.content = venteObj.content;
           existingVente.price = venteObj.price;
           existingVente.phone = venteObj.phone;
-          //existingVente.id_category = venteObj.id_category;
+          existingVente.id_category = venteObj.id_category;
           existingVente
             .save()
             .then((editedVente) => {

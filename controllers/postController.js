@@ -3,7 +3,6 @@ const Comment = require('../models/commentModel')
 module.exports={
    CreatePost:async (req, res) => {
     const postObj = {
-        title:req.body.title,
         content:req.body.content,
         image:req.file.filename
         }

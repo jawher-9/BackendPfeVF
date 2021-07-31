@@ -7,7 +7,7 @@ const schemaUser = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        minlength: 4,
+        minlength: 3,
     },
     email: {
         type: String,
@@ -35,11 +35,7 @@ const schemaUser = new mongoose.Schema({
         //     message: 'you must provid a valide password'
         // }
     },
-    phone: {
-        type: Number,
-        required: true,
-        default: '',
-    },
+    
     image: {
         type: String
     },
@@ -50,7 +46,7 @@ const schemaUser = new mongoose.Schema({
 }, { timestamps: true })//pour ajouter createdat et updatedat des modeles
 schemaUser.plugin(uniqueValidator)//affectih l schemauser bech ywali unique
 schemaUser.pre('save', function (next) {
-    this.password = bcrypt.hashSync(this.password, saltRounds)//pour avoir mdp chiffré 
+    this.password = bcrypt.hashSync(this.password, saltRounds)//pour avoir mdp chiffré lors de register de user
     next();
 })
-module.exports = mongoose.model('User', schemaUser)
+module.exports = mongoose.model('User', schemaUser)  
